@@ -27,6 +27,14 @@ Installing
 ----------
     sudo make install && sudo ldconfig
 
+Related projects
+----------------
+
+* [spotify/sparkey-python: Official python bindings](https://github.com/spotify/sparkey-python)
+* [spotify/sparkey-java: Official java implementation](https://github.com/spotify/sparkey-java)
+* [emnl/gnista: Unofficial ruby bindings](https://github.com/emnl/gnista)
+* [adamtanner/sparkey: Unofficial ruby bindings](https://github.com/adamtanner/sparkey)
+
 Description
 ------------
 Sparkey is an extremely simple persistent key-value store.
@@ -218,6 +226,8 @@ By storing the hash value itself in each slot we're wasting some space, but in r
 Hash lookup algorithm
 ----------------------
 One of few non-trivial parts in Sparkey is the way it does hash lookups. With hashtables there is always a risk of collisions. Even if the hash itself may not collide, the assigned slots may.
+
+(It recently came to my attention that the method described below is basically the same thing as Robin Hood hashing with backward shift deletion)
 
 Let's define displacement as the distance from the calculated optimal slot for a given hash to the slot it's actually placed in. Distance in this case is defined as the number of steps you need to move forward from your optimal slot to reach the actual slot.
 

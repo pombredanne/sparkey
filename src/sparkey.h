@@ -205,6 +205,10 @@
 
 #include <stdint.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef enum {
   SPARKEY_SUCCESS = 0,
   SPARKEY_INTERNAL_ERROR = -1,
@@ -382,6 +386,20 @@ uint64_t sparkey_logreader_maxkeylen(sparkey_logreader *log);
  * @returns
  */
 uint64_t sparkey_logreader_maxvaluelen(sparkey_logreader *log);
+
+/**
+ * Get the blocksize for a reader
+ * @param log a reference to a logreader.
+ * @returns the blocksize
+ */
+int sparkey_logreader_get_compression_blocksize(sparkey_logreader *log);
+
+/**
+ * Get the compression type for a reader
+ * @param log a reference to a logreader.
+ * @returns the compression type
+ */
+sparkey_compression_type sparkey_logreader_get_compression_type(sparkey_logreader *log);
 
 /**
  * Initializes a logiter and associates it with a logreader.
@@ -638,6 +656,18 @@ uint64_t sparkey_hash_numcollisions(sparkey_hashreader *reader);
  * @returns NULL if the index_filename does not end with ".spi"
  */
 char * sparkey_create_log_filename(const char *index_filename);
+
+/**
+ * Allocates and creates a string denoting an index file from a log file.
+ * This is simply a string replacement of .spl$ to .spi$
+ * @param log_filename the filename representing the log file
+ * @returns NULL if the log_filename does not end with ".spl"
+ */
+char * sparkey_create_index_filename(const char *log_filename);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 
